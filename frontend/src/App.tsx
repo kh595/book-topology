@@ -10,6 +10,7 @@ function App() {
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [highlightNodeId, setHighlightNodeId] = useState<string | null>(null);
+  const [focusNodeId, setFocusNodeId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,15 +37,17 @@ function App() {
   };
 
   const handleSearch = async (query: string) => {
-    try {
-      const results = await searchNodes(query);
-      if (results.length > 0) {
-        setHighlightNodeId(results[0].id);
-        setTimeout(() => setHighlightNodeId(null), 3000);
-      }
-    } catch (err) {
-      console.error('Search failed:', err);
-    }
+    const results = await searchNodes(query);
+    return results;
+  };
+
+  const handleSelectSearchResult = (nodeId: string) => {
+    setHighlightNodeId(nodeId);
+    setFocusNodeId(nodeId);
+    setTimeout(() => {
+      setHighlightNodeId(null);
+      setFocusNodeId(null);
+    }, 3000);
   };
 
   const handleNodeClick = (node: GraphNode) => {
@@ -107,9 +110,14 @@ function App() {
         data={graphData}
         onNodeClick={handleNodeClick}
         highlightNodeId={highlightNodeId}
+        focusNodeId={focusNodeId}
       />
 
-      <FilterPanel onFilterChange={handleFilterChange} onSearch={handleSearch} />
+      <FilterPanel
+        onFilterChange={handleFilterChange}
+        onSearch={handleSearch}
+        onSelectSearchResult={handleSelectSearchResult}
+      />
 
       {selectedNode && (
         <DetailPanel

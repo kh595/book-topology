@@ -7,6 +7,7 @@ interface Graph3DProps {
   data: GraphData;
   onNodeClick?: (node: GraphNode) => void;
   highlightNodeId?: string | null;
+  focusNodeId?: string | null;
 }
 
 // Generate color from string (for author-based coloring)
@@ -22,7 +23,7 @@ function stringToColor(str: string): string {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ForceGraph3DInstance = any;
 
-export function Graph3D({ data, onNodeClick, highlightNodeId }: Graph3DProps) {
+export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Graph3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<ForceGraph3DInstance | null>(null);
 
@@ -135,6 +136,28 @@ export function Graph3D({ data, onNodeClick, highlightNodeId }: Graph3DProps) {
       });
     }
   }, [highlightNodeId]);
+
+  // Focus camera on specific node
+  useEffect(() => {
+    if (graphRef.current && focusNodeId) {
+      const graphData = graphRef.current.graphData();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const node = graphData.nodes.find((n: any) => n.id === focusNodeId);
+      if (node && node.x !== undefined) {
+        const distance = 150;
+        const distRatio = 1 + distance / Math.hypot(node.x || 0, node.y || 0, node.z || 0);
+        graphRef.current.cameraPosition(
+          {
+            x: (node.x || 0) * distRatio,
+            y: (node.y || 0) * distRatio,
+            z: (node.z || 0) * distRatio,
+          },
+          { x: node.x, y: node.y, z: node.z },
+          1500
+        );
+      }
+    }
+  }, [focusNodeId]);
 
   return (
     <div

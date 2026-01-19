@@ -14,17 +14,26 @@ const RELATION_TYPES: RelationType[] = [
   'INFLUENCED',
 ];
 
-interface FilterPanelProps {
-  onFilterChange: (nodeTypes: NodeType[], relationTypes: RelationType[]) => void;
-  onSearch: (query: string) => void;
+interface SearchResult {
+  id: string;
+  label: string;
+  type: string;
 }
 
-export function FilterPanel({ onFilterChange, onSearch }: FilterPanelProps) {
+interface FilterPanelProps {
+  onFilterChange: (nodeTypes: NodeType[], relationTypes: RelationType[]) => void;
+  onSearch: (query: string) => Promise<SearchResult[]>;
+  onSelectSearchResult: (nodeId: string) => void;
+}
+
+export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult }: FilterPanelProps) {
   const [selectedNodeTypes, setSelectedNodeTypes] = useState<Set<NodeType>>(new Set(NODE_TYPES));
   const [selectedRelationTypes, setSelectedRelationTypes] = useState<Set<RelationType>>(
     new Set(RELATION_TYPES)
   );
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleNodeType = (type: NodeType) => {
@@ -49,11 +58,26 @@ export function FilterPanel({ onFilterChange, onSearch }: FilterPanelProps) {
     onFilterChange(Array.from(selectedNodeTypes), Array.from(newSet));
   };
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      onSearch(searchQuery.trim());
+      setIsSearching(true);
+      try {
+        const results = await onSearch(searchQuery.trim());
+        setSearchResults(results);
+      } catch (err) {
+        console.error('Search failed:', err);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
     }
+  };
+
+  const handleSelectResult = (nodeId: string) => {
+    onSelectSearchResult(nodeId);
+    setSearchResults([]);
+    setSearchQuery('');
   };
 
   return (
@@ -73,8 +97,28 @@ export function FilterPanel({ onFilterChange, onSearch }: FilterPanelProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button type="submit">검색</button>
+            <button type="submit" disabled={isSearching}>
+              {isSearching ? '...' : '검색'}
+            </button>
           </form>
+
+          {searchResults.length > 0 && (
+            <div className="search-results">
+              <h4>검색 결과 ({searchResults.length})</h4>
+              <ul>
+                {searchResults.map((result) => (
+                  <li
+                    key={result.id}
+                    onClick={() => handleSelectResult(result.id)}
+                    className="search-result-item"
+                  >
+                    <span className="result-type">{result.type === 'Book' ? '📖' : '✍️'}</span>
+                    <span className="result-label">{result.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="filter-section">
             <h3>노드 유형</h3>
