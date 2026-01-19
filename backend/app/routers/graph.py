@@ -74,11 +74,11 @@ async def search_nodes(
 ):
     search_query = """
     MATCH (n)
-    WHERE n.title CONTAINS $query OR n.name CONTAINS $query
+    WHERE n.title CONTAINS $search_term OR n.name CONTAINS $search_term
     RETURN n, labels(n) as labels
     LIMIT 20
     """
-    result = db.run(search_query, query=query)
+    result = db.run(search_query, search_term=query)
     nodes = []
     for record in result:
         node = record["n"]
