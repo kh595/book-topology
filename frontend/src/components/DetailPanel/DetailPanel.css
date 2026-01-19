@@ -1,0 +1,124 @@
+.detail-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: rgba(10, 10, 26, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: white;
+}
+
+.detail-header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.node-type {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.detail-header h2 {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.detail-properties {
+  margin-bottom: 20px;
+}
+
+.property {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.property-key {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.property-value {
+  color: white;
+  font-size: 13px;
+}
+
+.detail-neighbors h3 {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.detail-neighbors ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-neighbors li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.detail-neighbors li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.relation-type {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.neighbor-label {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.neighbor-type {
+  font-size: 12px;
+}
+
+.loading,
+.empty {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+}

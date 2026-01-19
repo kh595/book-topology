@@ -1,0 +1,112 @@
+{
+  "authors": [
+    {
+      "name": "표도르 도스토예프스키",
+      "birth_year": 1821,
+      "death_year": 1881,
+      "nationality": "러시아"
+    },
+    {
+      "name": "레프 톨스토이",
+      "birth_year": 1828,
+      "death_year": 1910,
+      "nationality": "러시아"
+    },
+    {
+      "name": "프란츠 카프카",
+      "birth_year": 1883,
+      "death_year": 1924,
+      "nationality": "오스트리아-헝가리"
+    },
+    {
+      "name": "알베르 카뮈",
+      "birth_year": 1913,
+      "death_year": 1960,
+      "nationality": "프랑스"
+    },
+    {
+      "name": "헤르만 헤세",
+      "birth_year": 1877,
+      "death_year": 1962,
+      "nationality": "독일"
+    }
+  ],
+  "books": [
+    {
+      "title": "죄와 벌",
+      "publication_year": 1866,
+      "genre": "심리 소설",
+      "description": "가난한 대학생 라스콜니코프의 범죄와 구원의 이야기"
+    },
+    {
+      "title": "카라마조프 가의 형제들",
+      "publication_year": 1880,
+      "genre": "철학 소설",
+      "description": "한 가문의 부친 살해 사건을 통해 신앙, 자유의지, 도덕을 탐구"
+    },
+    {
+      "title": "전쟁과 평화",
+      "publication_year": 1869,
+      "genre": "역사 소설",
+      "description": "나폴레옹 전쟁 시대 러시아 귀족 가문들의 이야기"
+    },
+    {
+      "title": "안나 카레니나",
+      "publication_year": 1877,
+      "genre": "사실주의 소설",
+      "description": "불륜과 사회적 압박 속에서 파멸하는 여성의 비극"
+    },
+    {
+      "title": "변신",
+      "publication_year": 1915,
+      "genre": "부조리 소설",
+      "description": "어느 날 벌레로 변한 그레고르 잠자의 이야기"
+    },
+    {
+      "title": "심판",
+      "publication_year": 1925,
+      "genre": "부조리 소설",
+      "description": "이유 없이 체포된 남자의 불가해한 재판 과정"
+    },
+    {
+      "title": "이방인",
+      "publication_year": 1942,
+      "genre": "부조리 소설",
+      "description": "세상과 단절된 한 남자의 무의미한 삶과 죽음"
+    },
+    {
+      "title": "페스트",
+      "publication_year": 1947,
+      "genre": "철학 소설",
+      "description": "전염병이 창궐한 도시에서 인간 조건을 탐구"
+    },
+    {
+      "title": "데미안",
+      "publication_year": 1919,
+      "genre": "성장 소설",
+      "description": "에밀 싱클레어의 자아 발견 여정"
+    },
+    {
+      "title": "싯다르타",
+      "publication_year": 1922,
+      "genre": "철학 소설",
+      "description": "깨달음을 찾아 떠나는 인도 청년의 이야기"
+    }
+  ],
+  "relationships": [
+    {"source": "죄와 벌", "target": "표도르 도스토예프스키", "type": "WRITTEN_BY"},
+    {"source": "카라마조프 가의 형제들", "target": "표도르 도스토예프스키", "type": "WRITTEN_BY"},
+    {"source": "전쟁과 평화", "target": "레프 톨스토이", "type": "WRITTEN_BY"},
+    {"source": "안나 카레니나", "target": "레프 톨스토이", "type": "WRITTEN_BY"},
+    {"source": "변신", "target": "프란츠 카프카", "type": "WRITTEN_BY"},
+    {"source": "심판", "target": "프란츠 카프카", "type": "WRITTEN_BY"},
+    {"source": "이방인", "target": "알베르 카뮈", "type": "WRITTEN_BY"},
+    {"source": "페스트", "target": "알베르 카뮈", "type": "WRITTEN_BY"},
+    {"source": "데미안", "target": "헤르만 헤세", "type": "WRITTEN_BY"},
+    {"source": "싯다르타", "target": "헤르만 헤세", "type": "WRITTEN_BY"},
+    {"source": "프란츠 카프카", "target": "표도르 도스토예프스키", "type": "INFLUENCED"},
+    {"source": "알베르 카뮈", "target": "표도르 도스토예프스키", "type": "INFLUENCED"},
+    {"source": "이방인", "target": "변신", "type": "SIMILAR_TO"},
+    {"source": "죄와 벌", "target": "카라마조프 가의 형제들", "type": "SIMILAR_TO"}
+  ]
+}

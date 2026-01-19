@@ -1,0 +1,201 @@
+.add-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  background: #4a90d9;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3);
+  transition: all 0.2s;
+}
+
+.add-btn:hover {
+  background: #3a7bc8;
+  transform: translateY(-2px);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1a2e;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-content .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content .close-btn:hover {
+  color: white;
+}
+
+.form-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.form-tabs button {
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.form-tabs button:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.form-tabs button.active {
+  color: white;
+  background: #4a90d9;
+}
+
+.message {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.message.success {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.message.error {
+  background: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4a90d9;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #4a90d9;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button[type="submit"]:hover {
+  background: #3a7bc8;
+}
+
+form button[type="submit"]:disabled {
+  background: rgba(74, 144, 217, 0.5);
+  cursor: not-allowed;
+}
+
+.import-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.import-section p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.import-hint {
+  font-family: monospace;
+  font-size: 12px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.import-section input[type="file"] {
+  margin-top: 16px;
+  color: white;
+}
