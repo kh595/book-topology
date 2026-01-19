@@ -6,6 +6,7 @@ from typing import Optional
 router = APIRouter()
 
 
+@router.get("", response_model=GraphData)
 @router.get("/", response_model=GraphData)
 async def get_graph_data(
     node_types: Optional[str] = Query(None, description="Comma-separated node types to include"),
