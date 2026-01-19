@@ -11,27 +11,27 @@ export async function fetchGraphData(
   if (relationTypes?.length) params.set('relation_types', relationTypes.join(','));
 
   const queryString = params.toString();
-  const url = queryString ? `${API_BASE}/graph/?${queryString}` : `${API_BASE}/graph/`;
+  const url = queryString ? `${API_BASE}/graph?${queryString}` : `${API_BASE}/graph`;
   const response = await fetch(url);
   if (!response.ok) throw new Error('Failed to fetch graph data');
   return response.json();
 }
 
 export async function searchNodes(query: string) {
-  const response = await fetch(`${API_BASE}/graph/search/?query=${encodeURIComponent(query)}`);
+  const response = await fetch(`${API_BASE}/graph/search?query=${encodeURIComponent(query)}`);
   if (!response.ok) throw new Error('Search failed');
   return response.json();
 }
 
 export async function getNeighbors(nodeId: string) {
-  const response = await fetch(`${API_BASE}/graph/neighbors/${nodeId}/`);
+  const response = await fetch(`${API_BASE}/graph/neighbors/${nodeId}`);
   if (!response.ok) throw new Error('Failed to get neighbors');
   return response.json();
 }
 
 // Books API
 export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
-  const response = await fetch(`${API_BASE}/books/`, {
+  const response = await fetch(`${API_BASE}/books`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(book),
@@ -41,19 +41,19 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
 }
 
 export async function getBooks(): Promise<Book[]> {
-  const response = await fetch(`${API_BASE}/books/`);
+  const response = await fetch(`${API_BASE}/books`);
   if (!response.ok) throw new Error('Failed to fetch books');
   return response.json();
 }
 
 export async function deleteBook(id: string): Promise<void> {
-  const response = await fetch(`${API_BASE}/books/${id}/`, { method: 'DELETE' });
+  const response = await fetch(`${API_BASE}/books/${id}`, { method: 'DELETE' });
   if (!response.ok) throw new Error('Failed to delete book');
 }
 
 // Authors API
 export async function createAuthor(author: Omit<Author, 'id'>): Promise<Author> {
-  const response = await fetch(`${API_BASE}/authors/`, {
+  const response = await fetch(`${API_BASE}/authors`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(author),
@@ -63,7 +63,7 @@ export async function createAuthor(author: Omit<Author, 'id'>): Promise<Author> 
 }
 
 export async function getAuthors(): Promise<Author[]> {
-  const response = await fetch(`${API_BASE}/authors/`);
+  const response = await fetch(`${API_BASE}/authors`);
   if (!response.ok) throw new Error('Failed to fetch authors');
   return response.json();
 }
@@ -74,7 +74,7 @@ export async function createRelationship(
   targetId: string,
   relationType: string
 ): Promise<void> {
-  const response = await fetch(`${API_BASE}/relationships/connect/`, {
+  const response = await fetch(`${API_BASE}/relationships/connect`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -91,7 +91,7 @@ export async function importData(file: File): Promise<{ imported: Record<string,
   const formData = new FormData();
   formData.append('file', file);
 
-  const response = await fetch(`${API_BASE}/relationships/import/`, {
+  const response = await fetch(`${API_BASE}/relationships/import`, {
     method: 'POST',
     body: formData,
   });

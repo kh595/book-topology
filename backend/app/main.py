@@ -7,7 +7,8 @@ from app.database.connection import neo4j_driver
 app = FastAPI(
     title="Book Topology API",
     description="책들의 연결 관계를 관리하는 API",
-    version="1.0.0"
+    version="1.0.0",
+    redirect_slashes=False
 )
 
 app.add_middleware(
