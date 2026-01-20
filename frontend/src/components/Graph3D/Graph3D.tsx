@@ -49,24 +49,24 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         const nodeEl = document.createElement('div');
 
         if (n.type === 'Book') {
-          nodeEl.innerHTML = `<span style="margin-right:3px">📖</span>${n.label}`;
+          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
           nodeEl.style.color = '#e1f5fe';
-          nodeEl.style.fontSize = '10px';
+          nodeEl.style.fontSize = '13px';
           nodeEl.style.fontWeight = '500';
           nodeEl.style.backgroundColor = 'rgba(0, 30, 60, 0.4)';
           nodeEl.style.border = 'none';
-          nodeEl.style.borderRadius = '3px';
-          nodeEl.style.padding = '2px 6px';
+          nodeEl.style.borderRadius = '4px';
+          nodeEl.style.padding = '3px 8px';
           nodeEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.8)';
         } else {
-          nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
+          nodeEl.innerHTML = `<span style="margin-right:5px">✍️</span>${n.label}`;
           nodeEl.style.color = '#ffe082';
-          nodeEl.style.fontSize = '11px';
+          nodeEl.style.fontSize = '14px';
           nodeEl.style.fontWeight = '600';
           nodeEl.style.backgroundColor = 'rgba(50, 30, 0, 0.5)';
           nodeEl.style.border = '1px solid rgba(255, 183, 77, 0.5)';
-          nodeEl.style.borderRadius = '12px';
-          nodeEl.style.padding = '3px 8px';
+          nodeEl.style.borderRadius = '14px';
+          nodeEl.style.padding = '4px 10px';
           nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         }
 
@@ -141,24 +141,24 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         const isHighlighted = n.id === highlightNodeId;
 
         if (n.type === 'Book') {
-          nodeEl.innerHTML = `<span style="margin-right:3px">📖</span>${n.label}`;
+          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
           nodeEl.style.color = isHighlighted ? '#ffffff' : '#e1f5fe';
-          nodeEl.style.fontSize = isHighlighted ? '13px' : '10px';
+          nodeEl.style.fontSize = isHighlighted ? '16px' : '13px';
           nodeEl.style.fontWeight = isHighlighted ? 'bold' : '500';
           nodeEl.style.backgroundColor = isHighlighted ? 'rgba(79, 195, 247, 0.7)' : 'rgba(0, 30, 60, 0.4)';
           nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : 'none';
-          nodeEl.style.borderRadius = '3px';
-          nodeEl.style.padding = isHighlighted ? '4px 8px' : '2px 6px';
+          nodeEl.style.borderRadius = '4px';
+          nodeEl.style.padding = isHighlighted ? '5px 10px' : '3px 8px';
           nodeEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.8)';
         } else {
-          nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
+          nodeEl.innerHTML = `<span style="margin-right:5px">✍️</span>${n.label}`;
           nodeEl.style.color = isHighlighted ? '#ffffff' : '#ffe082';
-          nodeEl.style.fontSize = isHighlighted ? '14px' : '11px';
+          nodeEl.style.fontSize = isHighlighted ? '18px' : '14px';
           nodeEl.style.fontWeight = isHighlighted ? 'bold' : '600';
           nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 183, 77, 0.7)' : 'rgba(50, 30, 0, 0.5)';
           nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : '1px solid rgba(255, 183, 77, 0.5)';
-          nodeEl.style.borderRadius = '12px';
-          nodeEl.style.padding = isHighlighted ? '4px 10px' : '3px 8px';
+          nodeEl.style.borderRadius = '14px';
+          nodeEl.style.padding = isHighlighted ? '5px 12px' : '4px 10px';
           nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         }
 
