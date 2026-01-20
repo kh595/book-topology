@@ -49,12 +49,14 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         const nodeEl = document.createElement('div');
 
         if (n.type === 'Book') {
-          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
-          nodeEl.style.color = '#81d4fa';
-          nodeEl.style.fontSize = '11px';
+          nodeEl.innerHTML = `<span style="margin-right:3px;opacity:0.7">📖</span>${n.label}`;
+          nodeEl.style.color = 'rgba(179, 229, 252, 0.9)';
+          nodeEl.style.fontSize = '10px';
           nodeEl.style.fontWeight = 'normal';
-          nodeEl.style.backgroundColor = 'rgba(13, 71, 161, 0.8)';
-          nodeEl.style.border = '1px solid #4fc3f7';
+          nodeEl.style.backgroundColor = 'rgba(13, 71, 161, 0.3)';
+          nodeEl.style.border = '1px solid rgba(79, 195, 247, 0.4)';
+          nodeEl.style.borderRadius = '3px';
+          nodeEl.style.padding = '2px 6px';
         } else {
           nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
           nodeEl.style.color = '#fff59d';
@@ -62,12 +64,12 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
           nodeEl.style.fontWeight = 'bold';
           nodeEl.style.backgroundColor = 'rgba(130, 80, 20, 0.85)';
           nodeEl.style.border = '2px solid #ffb74d';
+          nodeEl.style.borderRadius = '20px';
+          nodeEl.style.padding = '4px 10px';
         }
 
-        nodeEl.style.padding = '4px 8px';
-        nodeEl.style.borderRadius = n.type === 'Book' ? '4px' : '20px';
         nodeEl.style.whiteSpace = 'nowrap';
-        nodeEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
+        nodeEl.style.boxShadow = n.type === 'Book' ? 'none' : '0 2px 8px rgba(0,0,0,0.4)';
         return new CSS2DObject(nodeEl);
       })
       .nodeThreeObjectExtend(false)
@@ -138,13 +140,14 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         const isHighlighted = n.id === highlightNodeId;
 
         if (n.type === 'Book') {
-          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
-          nodeEl.style.color = isHighlighted ? '#ffffff' : '#81d4fa';
-          nodeEl.style.fontSize = isHighlighted ? '14px' : '11px';
+          nodeEl.innerHTML = `<span style="margin-right:3px;opacity:${isHighlighted ? '1' : '0.7'}">📖</span>${n.label}`;
+          nodeEl.style.color = isHighlighted ? '#ffffff' : 'rgba(179, 229, 252, 0.9)';
+          nodeEl.style.fontSize = isHighlighted ? '14px' : '10px';
           nodeEl.style.fontWeight = isHighlighted ? 'bold' : 'normal';
-          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 255, 255, 0.3)' : 'rgba(13, 71, 161, 0.8)';
-          nodeEl.style.border = isHighlighted ? '3px solid #ffffff' : '1px solid #4fc3f7';
-          nodeEl.style.borderRadius = '4px';
+          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(79, 195, 247, 0.8)' : 'rgba(13, 71, 161, 0.3)';
+          nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : '1px solid rgba(79, 195, 247, 0.4)';
+          nodeEl.style.borderRadius = '3px';
+          nodeEl.style.padding = isHighlighted ? '4px 8px' : '2px 6px';
         } else {
           nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
           nodeEl.style.color = isHighlighted ? '#ffffff' : '#fff59d';
@@ -153,11 +156,11 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
           nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 255, 255, 0.3)' : 'rgba(130, 80, 20, 0.85)';
           nodeEl.style.border = isHighlighted ? '3px solid #ffffff' : '2px solid #ffb74d';
           nodeEl.style.borderRadius = '20px';
+          nodeEl.style.padding = isHighlighted ? '5px 12px' : '4px 10px';
         }
 
-        nodeEl.style.padding = '4px 8px';
         nodeEl.style.whiteSpace = 'nowrap';
-        nodeEl.style.boxShadow = isHighlighted ? '0 0 20px rgba(255,255,255,0.8)' : '0 2px 8px rgba(0,0,0,0.4)';
+        nodeEl.style.boxShadow = isHighlighted ? '0 0 20px rgba(255,255,255,0.8)' : (n.type === 'Book' ? 'none' : '0 2px 8px rgba(0,0,0,0.4)');
         return new CSS2DObject(nodeEl);
       });
     }
