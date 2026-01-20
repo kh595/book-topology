@@ -47,14 +47,27 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
       .nodeThreeObject((node: any) => {
         const n = node as GraphNode;
         const nodeEl = document.createElement('div');
-        nodeEl.textContent = n.label;
-        nodeEl.style.color = n.type === 'Book' ? '#4fc3f7' : stringToColor(n.label);
-        nodeEl.style.fontSize = n.type === 'Book' ? '10px' : '12px';
-        nodeEl.style.fontWeight = n.type === 'Author' ? 'bold' : 'normal';
-        nodeEl.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-        nodeEl.style.padding = '2px 4px';
-        nodeEl.style.borderRadius = '3px';
+
+        if (n.type === 'Book') {
+          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
+          nodeEl.style.color = '#81d4fa';
+          nodeEl.style.fontSize = '11px';
+          nodeEl.style.fontWeight = 'normal';
+          nodeEl.style.backgroundColor = 'rgba(13, 71, 161, 0.8)';
+          nodeEl.style.border = '1px solid #4fc3f7';
+        } else {
+          nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
+          nodeEl.style.color = '#fff59d';
+          nodeEl.style.fontSize = '13px';
+          nodeEl.style.fontWeight = 'bold';
+          nodeEl.style.backgroundColor = 'rgba(130, 80, 20, 0.85)';
+          nodeEl.style.border = '2px solid #ffb74d';
+        }
+
+        nodeEl.style.padding = '4px 8px';
+        nodeEl.style.borderRadius = n.type === 'Book' ? '4px' : '20px';
         nodeEl.style.whiteSpace = 'nowrap';
+        nodeEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
         return new CSS2DObject(nodeEl);
       })
       .nodeThreeObjectExtend(false)
@@ -122,16 +135,29 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
       graphRef.current.nodeThreeObject((node: any) => {
         const n = node as GraphNode;
         const nodeEl = document.createElement('div');
-        nodeEl.textContent = n.label;
         const isHighlighted = n.id === highlightNodeId;
-        nodeEl.style.color = isHighlighted ? '#ffffff' : (n.type === 'Book' ? '#4fc3f7' : stringToColor(n.label));
-        nodeEl.style.fontSize = n.type === 'Book' ? '10px' : '12px';
-        nodeEl.style.fontWeight = isHighlighted || n.type === 'Author' ? 'bold' : 'normal';
-        nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.6)';
-        nodeEl.style.padding = '2px 4px';
-        nodeEl.style.borderRadius = '3px';
+
+        if (n.type === 'Book') {
+          nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
+          nodeEl.style.color = isHighlighted ? '#ffffff' : '#81d4fa';
+          nodeEl.style.fontSize = isHighlighted ? '14px' : '11px';
+          nodeEl.style.fontWeight = isHighlighted ? 'bold' : 'normal';
+          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 255, 255, 0.3)' : 'rgba(13, 71, 161, 0.8)';
+          nodeEl.style.border = isHighlighted ? '3px solid #ffffff' : '1px solid #4fc3f7';
+          nodeEl.style.borderRadius = '4px';
+        } else {
+          nodeEl.innerHTML = `<span style="margin-right:4px">✍️</span>${n.label}`;
+          nodeEl.style.color = isHighlighted ? '#ffffff' : '#fff59d';
+          nodeEl.style.fontSize = isHighlighted ? '16px' : '13px';
+          nodeEl.style.fontWeight = 'bold';
+          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 255, 255, 0.3)' : 'rgba(130, 80, 20, 0.85)';
+          nodeEl.style.border = isHighlighted ? '3px solid #ffffff' : '2px solid #ffb74d';
+          nodeEl.style.borderRadius = '20px';
+        }
+
+        nodeEl.style.padding = '4px 8px';
         nodeEl.style.whiteSpace = 'nowrap';
-        nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : 'none';
+        nodeEl.style.boxShadow = isHighlighted ? '0 0 20px rgba(255,255,255,0.8)' : '0 2px 8px rgba(0,0,0,0.4)';
         return new CSS2DObject(nodeEl);
       });
     }
