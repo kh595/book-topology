@@ -3,27 +3,30 @@ import ForceGraph3D from '3d-force-graph';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import type { GraphData, GraphNode } from '../../types';
 
+interface GraphSettings {
+  linkWidth: number;
+  linkOpacity: number;
+  nodeSpread: number;
+}
+
 interface Graph3DProps {
   data: GraphData;
   onNodeClick?: (node: GraphNode) => void;
   highlightNodeId?: string | null;
   focusNodeId?: string | null;
-}
-
-// Generate color from string (for author-based coloring)
-function stringToColor(str: string): string {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash % 360);
-  return `hsl(${hue}, 70%, 60%)`;
+  settings?: GraphSettings;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ForceGraph3DInstance = any;
 
-export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Graph3DProps) {
+const defaultSettings: GraphSettings = {
+  linkWidth: 3,
+  linkOpacity: 0.7,
+  nodeSpread: 200,
+};
+
+export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId, settings = defaultSettings }: Graph3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<ForceGraph3DInstance | null>(null);
 
@@ -39,6 +42,7 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
     css2DRenderer.domElement.style.position = 'absolute';
     css2DRenderer.domElement.style.top = '0';
     css2DRenderer.domElement.style.pointerEvents = 'none';
+    css2DRenderer.domElement.style.zIndex = '1';
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const graph = (ForceGraph3D as any)({ extraRenderers: [css2DRenderer] })(containerRef.current)
@@ -88,16 +92,13 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .linkColor((link: any) => {
         const l = link as { type?: string };
-        if (l.type === 'WRITTEN_BY') return 'rgba(255, 183, 77, 0.3)';
-        if (l.type === 'SIMILAR_TO') return 'rgba(79, 195, 247, 0.3)';
-        return 'rgba(144, 164, 174, 0.25)';
+        if (l.type === 'WRITTEN_BY') return '#ffb74d';
+        if (l.type === 'SIMILAR_TO') return '#4fc3f7';
+        return '#90a4ae';
       })
-      .linkWidth(0.5)
-      .linkOpacity(0.4)
+      .linkWidth(settings.linkWidth)
+      .linkOpacity(settings.linkOpacity)
       .linkDirectionalParticles(0)
-      .linkDirectionalParticleWidth(0)
-      .linkDirectionalParticleSpeed(0)
-      .linkDirectionalParticleColor(() => 'transparent')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .onNodeClick((node: any) => {
         if (onNodeClick) {
@@ -190,6 +191,42 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
       });
     }
   }, [highlightNodeId]);
+
+  // Update link visual properties when settings change
+  useEffect(() => {
+    if (graphRef.current) {
+      graphRef.current
+        .linkWidth(settings.linkWidth)
+        .linkOpacity(settings.linkOpacity);
+    }
+  }, [settings.linkWidth, settings.linkOpacity]);
+
+  // Update node spread using d3AlphaDecay and warmup ticks
+  useEffect(() => {
+    if (graphRef.current && data.nodes.length > 0) {
+      // Use d3VelocityDecay to control how fast nodes settle
+      // Lower values = nodes spread out more before settling
+      const decay = Math.max(0.1, 1 - settings.nodeSpread / 500);
+      graphRef.current.d3VelocityDecay(decay);
+
+      // Adjust charge force strength if available
+      const chargeForce = graphRef.current.d3Force('charge');
+      if (chargeForce && typeof chargeForce.strength === 'function') {
+        chargeForce.strength(-settings.nodeSpread * 3);
+      }
+
+      // Adjust link distance if available
+      const linkForce = graphRef.current.d3Force('link');
+      if (linkForce && typeof linkForce.distance === 'function') {
+        linkForce.distance(settings.nodeSpread * 0.5);
+      }
+
+      // Reheat simulation to apply changes
+      if (graphRef.current.d3ReheatSimulation) {
+        graphRef.current.d3ReheatSimulation();
+      }
+    }
+  }, [settings.nodeSpread, data.nodes.length]);
 
   // Focus camera on specific node
   useEffect(() => {

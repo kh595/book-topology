@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { NodeType, RelationType } from '../../types';
 import { NODE_COLORS, RELATION_LABELS } from '../../types';
 import './FilterPanel.css';
@@ -24,9 +24,10 @@ interface FilterPanelProps {
   onFilterChange: (nodeTypes: NodeType[], relationTypes: RelationType[]) => void;
   onSearch: (query: string) => Promise<SearchResult[]>;
   onSelectSearchResult: (nodeId: string) => void;
+  children?: ReactNode;
 }
 
-export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult }: FilterPanelProps) {
+export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, children }: FilterPanelProps) {
   const [selectedNodeTypes, setSelectedNodeTypes] = useState<Set<NodeType>>(new Set(NODE_TYPES));
   const [selectedRelationTypes, setSelectedRelationTypes] = useState<Set<RelationType>>(
     new Set(RELATION_TYPES)
@@ -152,6 +153,8 @@ export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult }: 
               ))}
             </div>
           </div>
+
+          {children}
         </>
       )}
     </div>

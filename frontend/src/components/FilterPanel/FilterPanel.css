@@ -4,12 +4,13 @@
   left: 0;
   width: 280px;
   height: 100%;
-  background: rgba(10, 10, 26, 0.95);
+  background: #0a0a1a;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;
   overflow-y: auto;
-  z-index: 100;
+  z-index: 1000;
   transition: width 0.3s ease;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .filter-panel.collapsed {

@@ -3,8 +3,15 @@ import { Graph3D } from './components/Graph3D/Graph3D';
 import { FilterPanel } from './components/FilterPanel/FilterPanel';
 import { DetailPanel } from './components/DetailPanel/DetailPanel';
 import { BookForm } from './components/BookForm/BookForm';
+import { GraphSettings, type GraphSettingsValues } from './components/GraphSettings';
 import { fetchGraphData, searchNodes } from './services/api';
 import type { GraphData, GraphNode, NodeType, RelationType } from './types';
+
+const defaultGraphSettings: GraphSettingsValues = {
+  linkWidth: 3,
+  linkOpacity: 0.7,
+  nodeSpread: 200,
+};
 
 function App() {
   const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
@@ -13,6 +20,7 @@ function App() {
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [graphSettings, setGraphSettings] = useState<GraphSettingsValues>(defaultGraphSettings);
 
   const loadGraphData = useCallback(async (nodeTypes?: NodeType[], relationTypes?: RelationType[]) => {
     setLoading(true);
@@ -111,13 +119,16 @@ function App() {
         onNodeClick={handleNodeClick}
         highlightNodeId={highlightNodeId}
         focusNodeId={focusNodeId}
+        settings={graphSettings}
       />
 
       <FilterPanel
         onFilterChange={handleFilterChange}
         onSearch={handleSearch}
         onSelectSearchResult={handleSelectSearchResult}
-      />
+      >
+        <GraphSettings settings={graphSettings} onChange={setGraphSettings} />
+      </FilterPanel>
 
       {selectedNode && (
         <DetailPanel
