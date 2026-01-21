@@ -56,28 +56,28 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         ).length;
 
         if (n.type === 'Book') {
-          // Scale font size based on link count (min 12px, max 20px)
-          const fontSize = Math.min(20, Math.max(12, 12 + linkCount * 1.5));
+          // Scale font size based on link count (min 10px, max 28px) - bigger range
+          const fontSize = Math.min(28, Math.max(10, 10 + linkCount * 3));
           nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
           nodeEl.style.color = '#e1f5fe';
           nodeEl.style.fontSize = `${fontSize}px`;
-          nodeEl.style.fontWeight = linkCount > 3 ? '600' : '500';
-          nodeEl.style.backgroundColor = `rgba(0, 30, 60, ${Math.min(0.7, 0.3 + linkCount * 0.05)})`;
+          nodeEl.style.fontWeight = linkCount > 3 ? '700' : '500';
+          nodeEl.style.backgroundColor = `rgba(0, 30, 60, ${Math.min(0.7, 0.25 + linkCount * 0.07)})`;
           nodeEl.style.border = linkCount > 5 ? '1px solid rgba(79, 195, 247, 0.5)' : 'none';
           nodeEl.style.borderRadius = '4px';
-          nodeEl.style.padding = linkCount > 3 ? '4px 10px' : '3px 8px';
-          nodeEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.8)';
+          nodeEl.style.padding = linkCount > 3 ? '4px 10px' : '2px 6px';
+          nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         } else {
           // Authors also scale by connections
-          const fontSize = Math.min(18, Math.max(13, 13 + linkCount * 0.5));
+          const fontSize = Math.min(18, Math.max(12, 12 + linkCount * 0.5));
           nodeEl.innerHTML = `<span style="margin-right:5px">✍️</span>${n.label}`;
           nodeEl.style.color = '#ffe082';
           nodeEl.style.fontSize = `${fontSize}px`;
           nodeEl.style.fontWeight = '600';
-          nodeEl.style.backgroundColor = `rgba(50, 30, 0, ${Math.min(0.8, 0.4 + linkCount * 0.03)})`;
-          nodeEl.style.border = '1px solid rgba(255, 183, 77, 0.5)';
+          nodeEl.style.backgroundColor = `rgba(50, 30, 0, ${Math.min(0.7, 0.35 + linkCount * 0.03)})`;
+          nodeEl.style.border = '1px solid rgba(255, 183, 77, 0.4)';
           nodeEl.style.borderRadius = '14px';
-          nodeEl.style.padding = '4px 10px';
+          nodeEl.style.padding = '3px 8px';
           nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         }
 
@@ -88,16 +88,16 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .linkColor((link: any) => {
         const l = link as { type?: string };
-        if (l.type === 'WRITTEN_BY') return '#ffb74d';
-        if (l.type === 'SIMILAR_TO') return '#4fc3f7';
-        return '#90a4ae';
+        if (l.type === 'WRITTEN_BY') return 'rgba(255, 183, 77, 0.3)';
+        if (l.type === 'SIMILAR_TO') return 'rgba(79, 195, 247, 0.3)';
+        return 'rgba(144, 164, 174, 0.25)';
       })
-      .linkWidth(2)
-      .linkOpacity(0.8)
-      .linkDirectionalParticles(2)
-      .linkDirectionalParticleWidth(2)
-      .linkDirectionalParticleSpeed(0.005)
-      .linkDirectionalParticleColor(() => '#ffffff')
+      .linkWidth(0.5)
+      .linkOpacity(0.4)
+      .linkDirectionalParticles(0)
+      .linkDirectionalParticleWidth(0)
+      .linkDirectionalParticleSpeed(0)
+      .linkDirectionalParticleColor(() => 'transparent')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .onNodeClick((node: any) => {
         if (onNodeClick) {
@@ -159,28 +159,28 @@ export function Graph3D({ data, onNodeClick, highlightNodeId, focusNodeId }: Gra
         ).length;
 
         if (n.type === 'Book') {
-          const baseFontSize = Math.min(20, Math.max(12, 12 + linkCount * 1.5));
-          const fontSize = isHighlighted ? baseFontSize + 4 : baseFontSize;
+          const baseFontSize = Math.min(28, Math.max(10, 10 + linkCount * 3));
+          const fontSize = isHighlighted ? baseFontSize + 6 : baseFontSize;
           nodeEl.innerHTML = `<span style="margin-right:4px">📖</span>${n.label}`;
           nodeEl.style.color = isHighlighted ? '#ffffff' : '#e1f5fe';
           nodeEl.style.fontSize = `${fontSize}px`;
-          nodeEl.style.fontWeight = isHighlighted ? 'bold' : (linkCount > 3 ? '600' : '500');
-          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(79, 195, 247, 0.7)' : `rgba(0, 30, 60, ${Math.min(0.7, 0.3 + linkCount * 0.05)})`;
+          nodeEl.style.fontWeight = isHighlighted ? 'bold' : (linkCount > 3 ? '700' : '500');
+          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(79, 195, 247, 0.7)' : `rgba(0, 30, 60, ${Math.min(0.7, 0.25 + linkCount * 0.07)})`;
           nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : (linkCount > 5 ? '1px solid rgba(79, 195, 247, 0.5)' : 'none');
           nodeEl.style.borderRadius = '4px';
-          nodeEl.style.padding = isHighlighted ? '5px 10px' : (linkCount > 3 ? '4px 10px' : '3px 8px');
-          nodeEl.style.textShadow = '0 1px 2px rgba(0,0,0,0.8)';
+          nodeEl.style.padding = isHighlighted ? '5px 12px' : (linkCount > 3 ? '4px 10px' : '2px 6px');
+          nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         } else {
-          const baseFontSize = Math.min(18, Math.max(13, 13 + linkCount * 0.5));
+          const baseFontSize = Math.min(18, Math.max(12, 12 + linkCount * 0.5));
           const fontSize = isHighlighted ? baseFontSize + 4 : baseFontSize;
           nodeEl.innerHTML = `<span style="margin-right:5px">✍️</span>${n.label}`;
           nodeEl.style.color = isHighlighted ? '#ffffff' : '#ffe082';
           nodeEl.style.fontSize = `${fontSize}px`;
           nodeEl.style.fontWeight = isHighlighted ? 'bold' : '600';
-          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 183, 77, 0.7)' : `rgba(50, 30, 0, ${Math.min(0.8, 0.4 + linkCount * 0.03)})`;
-          nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : '1px solid rgba(255, 183, 77, 0.5)';
+          nodeEl.style.backgroundColor = isHighlighted ? 'rgba(255, 183, 77, 0.7)' : `rgba(50, 30, 0, ${Math.min(0.7, 0.35 + linkCount * 0.03)})`;
+          nodeEl.style.border = isHighlighted ? '2px solid #ffffff' : '1px solid rgba(255, 183, 77, 0.4)';
           nodeEl.style.borderRadius = '14px';
-          nodeEl.style.padding = isHighlighted ? '5px 12px' : '4px 10px';
+          nodeEl.style.padding = isHighlighted ? '5px 12px' : '3px 8px';
           nodeEl.style.textShadow = '0 1px 3px rgba(0,0,0,0.9)';
         }
 
