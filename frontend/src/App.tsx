@@ -40,9 +40,11 @@ function App() {
     loadGraphData();
   }, [loadGraphData]);
 
+  /* 임시 비활성화
   const handleFilterChange = (nodeTypes: NodeType[], relationTypes: RelationType[]) => {
     loadGraphData(nodeTypes, relationTypes);
   };
+  */
 
   const handleSearch = async (query: string) => {
     const results = await searchNodes(query);
@@ -123,7 +125,6 @@ function App() {
       />
 
       <FilterPanel
-        onFilterChange={handleFilterChange}
         onSearch={handleSearch}
         onSelectSearchResult={handleSelectSearchResult}
       >

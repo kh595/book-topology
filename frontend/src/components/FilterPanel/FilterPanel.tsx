@@ -1,8 +1,9 @@
 import { useState, type ReactNode } from 'react';
-import type { NodeType, RelationType } from '../../types';
-import { NODE_COLORS, RELATION_LABELS } from '../../types';
+// import type { NodeType, RelationType } from '../../types';
+// import { NODE_COLORS, RELATION_LABELS } from '../../types';
 import './FilterPanel.css';
 
+/* 임시 비활성화
 const NODE_TYPES: NodeType[] = ['Book', 'Author', 'Era', 'Movement', 'Character', 'Plot'];
 const RELATION_TYPES: RelationType[] = [
   'WRITTEN_BY',
@@ -13,6 +14,7 @@ const RELATION_TYPES: RelationType[] = [
   'SIMILAR_TO',
   'INFLUENCED',
 ];
+*/
 
 interface SearchResult {
   id: string;
@@ -21,22 +23,25 @@ interface SearchResult {
 }
 
 interface FilterPanelProps {
-  onFilterChange: (nodeTypes: NodeType[], relationTypes: RelationType[]) => void;
+  // onFilterChange: (nodeTypes: NodeType[], relationTypes: RelationType[]) => void;  // 임시 비활성화
   onSearch: (query: string) => Promise<SearchResult[]>;
   onSelectSearchResult: (nodeId: string) => void;
   children?: ReactNode;
 }
 
-export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, children }: FilterPanelProps) {
+export function FilterPanel({ onSearch, onSelectSearchResult, children }: FilterPanelProps) {
+  /* 임시 비활성화
   const [selectedNodeTypes, setSelectedNodeTypes] = useState<Set<NodeType>>(new Set(NODE_TYPES));
   const [selectedRelationTypes, setSelectedRelationTypes] = useState<Set<RelationType>>(
     new Set(RELATION_TYPES)
   );
+  */
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  /* 임시 비활성화
   const toggleNodeType = (type: NodeType) => {
     const newSet = new Set(selectedNodeTypes);
     if (newSet.has(type)) {
@@ -58,6 +63,7 @@ export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, ch
     setSelectedRelationTypes(newSet);
     onFilterChange(Array.from(selectedNodeTypes), Array.from(newSet));
   };
+  */
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,6 +127,7 @@ export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, ch
             </div>
           )}
 
+          {/* 노드 유형 필터 - 임시 비활성화
           <div className="filter-section">
             <h3>노드 유형</h3>
             <div className="filter-options">
@@ -137,7 +144,9 @@ export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, ch
               ))}
             </div>
           </div>
+          */}
 
+          {/* 관계 유형 필터 - 임시 비활성화
           <div className="filter-section">
             <h3>관계 유형</h3>
             <div className="filter-options">
@@ -153,6 +162,7 @@ export function FilterPanel({ onFilterChange, onSearch, onSelectSearchResult, ch
               ))}
             </div>
           </div>
+          */}
 
           {children}
         </>
